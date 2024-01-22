@@ -1,0 +1,100 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{appTitle}}</h1>
+      <form @submit="addTodo">
+        <input
+          type="text"
+          name="todo-title"
+          id="todo-title"
+          v-model="newTodo"
+        />
+        <button>Add</button>
+      </form>
+      <ul>
+        <li v-for="todo in todos" :key="todo.id">
+          <form @submit="hideEditForm" v-show="editedTodo === todo.id">
+            <input type="text" v-model="todo.title" />
+            <input
+              type="checkbox"
+              :checked="todo.done"
+              @change="toggleTodoStatus(todo.id)"
+            />
+            <button>Save</button>
+          </form>
+          <div v-show="editedTodo !== todo.id">
+            <span @click="showEditForm(todo.id)">{{todo.title}}</span>
+            <input
+              type="checkbox"
+              :checked="todo.done"
+              @change="toggleTodoStatus(todo.id)"
+            />
+          </div>
+        </li>
+      </ul>
+      <button @click="log">Log</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const TODOS = [
+        { id: 1, title: "Todo 1", done: false },
+        { id: 2, title: "Todo 2", done: true },
+        { id: 3, title: "Todo 3", done: false },
+      ];
+      const app = new Vue({
+        el: "#app",
+        data: {
+          appTitle: "Todos app",
+          todos: TODOS,
+          newTodo: "",
+          editedTodo: null,
+        },
+        methods: {
+          addTodo(e) {
+            e.preventDefault();
+            const id = Math.max(...this.todos.map(({ id }) => id)) + 1;
+            this.todos.push({ id, title: this.newTodo, done: false });
+            this.newTodo = "";
+          },
+          hideEditForm(e) {
+            e.preventDefault();
+            this.editedTodo = null;
+          },
+          showEditForm(id) {
+            this.editedTodo = id;
+          },
+          toggleTodoStatus(targetId) {
+            const targetTodoIndex = this.todos.findIndex(
+              ({ id }) => id === targetId
+            );
+            this.todos[targetTodoIndex] = {
+              ...this.todos[targetTodoIndex],
+              done: !this.todos[targetTodoIndex].done,
+            };
+          },
+          toggleTodoStatus(targetId) {
+            const targetTodoIndex = this.todos.findIndex(
+              ({ id }) => id === targetId
+            );
+            this.todos[targetTodoIndex] = {
+              ...this.todos[targetTodoIndex],
+              done: !this.todos[targetTodoIndex].done,
+            };
+          },
+          log() {
+            console.log("🚀 ~ log ~ this:", {
+              todos: this.todos,
+              newTodo: this.newTodo,
+              editedTodo: this.editedTodo,
+            });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

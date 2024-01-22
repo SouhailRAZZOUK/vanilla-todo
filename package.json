@@ -1,0 +1,25 @@
+{
+  "name": "vanilla-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SouhailRAZZOUK/vanilla-todo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SouhailRAZZOUK/vanilla-todo/issues"
+  },
+  "homepage": "https://github.com/SouhailRAZZOUK/vanilla-todo#readme",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
+
